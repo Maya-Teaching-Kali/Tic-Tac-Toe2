@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+  </head>
+  <body>    
+    <script>
+      //game board
+      //game tiles x o
+      //make tiles change
+      //win check
+      //turn
+      
+      const game_board = document.createElement("div");
+      game_board.className = "game-board";
+      const game_tiles = [];
+      const game_tiles_text = [];
+      let turn = "x";
+      let counter = 0;
+      console.log(game_board.className);
+      game_board.style.height = "600px";
+      game_board.style.width = "600px";
+      game_board.style.border = "3px solid black";
+      game_board.style.margin = "auto";
+      game_board.style.display = "flex";
+      game_board.style.flexWrap = "wrap";
+      document.querySelector("body").appendChild(game_board);
+      const PrintTiles = () => {
+        counter = 0;
+        for (let index = 0; index < 9; index++) {
+          game_tiles.push(document.createElement("div"));
+          game_tiles_text.push(document.createElement("p"));
+          game_tiles[index].style.display = "flex";
+          game_tiles[index].style.justifyContent = "center";
+          game_tiles[index].style.alignItems = "center";
+          game_tiles[index].style.width = "200px";
+          game_tiles[index].style.height = "200px";
+          game_tiles[index].style.border = "1px solid black";
+          game_tiles[index].style.boxSizing = "border-box";
+          game_tiles[index].style.margin = "0";
+          game_tiles[index].style.padding = "0";
+          game_tiles[index].className = "game-tile" + index;
+          game_tiles_text[index].innerHTML = "-";
+          game_tiles_text[index].style.fontSize = "40px";
+          game_tiles[index].appendChild(game_tiles_text[index]);
+          document.querySelector(".game-board").appendChild(game_tiles[index]);
+        }
+      };
+      const WinCheck = () => {
+        if (
+          (game_tiles_text[0].innerHTML === "x" &&
+            game_tiles_text[1].innerHTML === "x" &&
+            game_tiles_text[2].innerHTML === "x") ||
+          (game_tiles_text[3].innerHTML === "x" &&
+            game_tiles_text[4].innerHTML === "x" &&
+            game_tiles_text[5].innerHTML === "x") ||
+          (game_tiles_text[6].innerHTML === "x" &&
+            game_tiles_text[7].innerHTML === "x" &&
+            game_tiles_text[8].innerHTML === "x") ||
+          (game_tiles_text[0].innerHTML === "x" &&
+            game_tiles_text[3].innerHTML === "x" &&
+            game_tiles_text[6].innerHTML === "x") ||
+          (game_tiles_text[1].innerHTML === "x" &&
+            game_tiles_text[4].innerHTML === "x" &&
+            game_tiles_text[7].innerHTML === "x") ||
+          (game_tiles_text[2].innerHTML === "x" &&
+            game_tiles_text[5].innerHTML === "x" &&
+            game_tiles_text[8].innerHTML === "x") ||
+          (game_tiles_text[0].innerHTML === "x" &&
+            game_tiles_text[4].innerHTML === "x" &&
+            game_tiles_text[8].innerHTML === "x") ||
+          (game_tiles_text[6].innerHTML === "x" &&
+            game_tiles_text[4].innerHTML === "x" &&
+            game_tiles_text[2].innerHTML === "x")
+        ) {
+          setTimeout(() => {
+            alert("X wins");
+            PrintTiles();
+          }, 10);
+          return;
+        }
+        if (
+          (game_tiles_text[0].innerHTML === "o" &&
+            game_tiles_text[1].innerHTML === "o" &&
+            game_tiles_text[2].innerHTML === "o") ||
+          (game_tiles_text[3].innerHTML === "o" &&
+            game_tiles_text[4].innerHTML === "o" &&
+            game_tiles_text[5].innerHTML === "o") ||
+          (game_tiles_text[6].innerHTML === "o" &&
+            game_tiles_text[7].innerHTML === "o" &&
+            game_tiles_text[8].innerHTML === "o") ||
+          (game_tiles_text[0].innerHTML === "o" &&
+            game_tiles_text[3].innerHTML === "o" &&
+            game_tiles_text[6].innerHTML === "o") ||
+          (game_tiles_text[1].innerHTML === "o" &&
+            game_tiles_text[4].innerHTML === "o" &&
+            game_tiles_text[7].innerHTML === "o") ||
+          (game_tiles_text[2].innerHTML === "o" &&
+            game_tiles_text[5].innerHTML === "o" &&
+            game_tiles_text[8].innerHTML === "o") ||
+          (game_tiles_text[0].innerHTML === "o" &&
+            game_tiles_text[4].innerHTML === "o" &&
+            game_tiles_text[8].innerHTML === "o") ||
+          (game_tiles_text[6].innerHTML === "o" &&
+            game_tiles_text[4].innerHTML === "o" &&
+            game_tiles_text[2].innerHTML === "o")
+        ) {
+          setTimeout(() => {
+            alert("O wins");
+            PrintTiles();
+          }, 10);
+          return;
+        }
+        counter++;
+        if (counter >= 9) {
+          setTimeout(() => {
+            alert("Draw, So you both lose");
+            PrintTiles();
+          }, 10);
+          PrintTiles();
+        }
+      };
+      const test = document.querySelector("h1");
+      PrintTiles();
+      for (let index = 0; index < 9; index++) {
+        document
+          .querySelector(".game-board > .game-tile" + index)
+          .addEventListener("click", () => {
+            if (game_tiles_text[index].innerHTML === "-" && turn === "x") {
+              game_tiles_text[index].innerHTML = "x";
+              turn = "o";
+            } else if (
+              game_tiles_text[index].innerHTML === "-" &&
+              turn === "o"
+            ) {
+              game_tiles_text[index].innerHTML = "o";
+              turn = "x";
+            } else {
+              alert("tile selected");
+              return;
+            }
+            WinCheck();
+          });
+      }
+    </script>
+  </body>
+</html>
